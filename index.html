@@ -25,8 +25,11 @@
   const Agile = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M12 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M20 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0z"/><path d="M4 12a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/><path d="M14.83 9.17a2 2 0 1 0-2.83-2.83 2 2 0 0 0 2.83 2.83z"/><path d="M14.83 14.83a2 2 0 1 0 2.83 2.83 2 2 0 0 0-2.83-2.83z"/><path d="M9.17 14.83a2 2 0 1 0-2.83 2.83 2 2 0 0 0 2.83-2.83z"/><path d="M9.17 9.17a2 2 0 1 0 2.83-2.83 2 2 0 0 0-2.83 2.83z"/></svg>;
 
   const Resume = () => {
+    // State for language toggle
+    const [language, setLanguage] = useState('en');
+
     // State for photo upload
-    const [photoURL, setPhotoURL] = useState('');
+    const [photoURL, setPhotoURL] = useState('cv_image.jpeg');
 
     const handlePhotoChange = (e) => {
       const file = e.target.files[0];
@@ -41,7 +44,10 @@
 
     const [personalInfo, setPersonalInfo] = useState({
       name: 'Pamela Zamboni',
-      title: 'Junior Scrum Master',
+      title: {
+        en: 'Junior Scrum Master',
+        nl: 'Junior Scrum Master'
+      },
       email: 'zambgirl@gmail.com',
       phone: '+31 6 47473225',
       location: 'Zoetermeer, Netherlands',
@@ -49,105 +55,209 @@
       github: 'github.com/zambgirl'
     });
 
-    const [summary, setSummary] = useState('Dedicated Junior Scrum Master with a passion for Agile methodologies and a collaborative approach to project management. Skilled in facilitating ceremonies, removing impediments, and fostering team development. Committed to continuous improvement and creating environments where teams can thrive and deliver exceptional results.');
+    const [summary, setSummary] = useState({
+      en: 'Dedicated Junior Scrum Master with a passion for Agile methodologies and a collaborative approach to project management. Skilled in facilitating ceremonies, removing impediments, and fostering team development. Committed to continuous improvement and creating environments where teams can thrive and deliver exceptional results.',
+      nl: 'Toegewijde Junior Scrum Master met een passie voor Agile methodologieën en een collaboratieve benadering van projectmanagement. Bekwaam in het faciliteren van ceremonies, het wegkomen van belemmeringen en het bevorderen van teamontwikkeling. Toegewijd aan continue verbetering en het creëren van omgevingen waarin teams kunnen floreren en uitzonderlijke resultaten kunnen leveren.'
+    });
 
     const [experience, setExperience] = useState([
       {
         id: 1,
-        title: 'Junior Scrum Master',
+        title: {
+          en: 'Junior Scrum Master',
+          nl: 'Junior Scrum Master'
+        },
         company: 'Martin SSH B.V.',
         location: 'The Hague, Netherlands',
-        startDate: 'January 2023',
-        endDate: 'Present',
-        responsibilities: [
-          'Facilitated daily stand-ups, sprint planning, reviews, and retrospectives for a team of 8 developers',
-          'Removed impediments and coached team members on Agile best practices',
-          'Collaborated with Product Owner to maintain and prioritize the product backlog',
-          'Improved sprint velocity by 15% through process refinements and team building activities'
-        ]
+        startDate: {
+          en: 'January 2023',
+          nl: 'Januari 2023'
+        },
+        endDate: {
+          en: 'Present',
+          nl: 'Heden'
+        },
+        responsibilities: {
+          en: [
+            'Facilitated daily stand-ups, sprint planning, reviews, and retrospectives for a team of 8 developers',
+            'Removed impediments and coached team members on Agile best practices',
+            'Collaborated with Product Owner to maintain and prioritize the product backlog',
+            'Improved sprint velocity by 15% through process refinements and team building activities'
+          ],
+          nl: [
+            'Faciliteerde dagelijkse stand-ups, sprint planning, reviews en retrospectives voor een team van 8 ontwikkelaars',
+            'Weggenomen belemmeringen en gecoacht teamleden in Agile best practices',
+            'Samengewerkt met Product Owner om de product backlog te onderhouden en prioriteren',
+            'Sprint velocity verbeterd met 15% door procesverbeteringen en teambuilding activiteiten'
+          ]
+        }
       },
       {
         id: 2,
-        title: 'Full time mom and Agile Enthusiast',
-        company: 'Home',
+        title: {
+          en: 'Full time mom and Agile Enthusiast',
+          nl: 'Fulltime moeder en Agile Enthusiast'
+        },
+        company: {
+          en: 'Home',
+          nl: 'Thuis'
+        },
         location: 'Zoetermeer, Netherlands',
-        startDate: 'January 2017',
-        endDate: 'December 2022',
-        responsibilities: [
-          'Managed household operations and family schedules',
-          'Applied Agile principles to daily life, focusing on continuous improvement and adaptability',
-          'Engaged in self-study of Agile methodologies, Scrum practices, and team dynamics',
-          'Participated in online Agile communities and forums to enhance knowledge and skills'
-        ]
+        startDate: {
+          en: 'January 2017',
+          nl: 'Januari 2017'
+        },
+        endDate: {
+          en: 'December 2022',
+          nl: 'December 2022'
+        },
+        responsibilities: {
+          en: [
+            'Managed household operations and family schedules',
+            'Applied Agile principles to daily life, focusing on continuous improvement and adaptability',
+            'Engaged in self-study of Agile methodologies, Scrum practices, and team dynamics',
+            'Participated in online Agile communities and forums to enhance knowledge and skills'
+          ],
+          nl: [
+            'Beheerde huishoudelijke activiteiten en familieschema\'s',
+            'Agile principes toegepast op het dagelijks leven, gericht op continue verbetering en aanpassingsvermogen',
+            'Zelfstandig studie van Agile methodologieën, Scrum practices en teamdynamiek',
+            'Deelgenomen aan online Agile gemeenschappen en forums om kennis en vaardigheden te verbeteren'
+          ]
+        }
       },
       {
         id: 3,
-        title: 'Infectologist Nurse',
+        title: {
+          en: 'Infectologist Nurse',
+          nl: 'Infectioloog Verpleegkundige'
+        },
         company: 'Prefeitura Municipal de Barueri',
         location: 'Barueri, Brazil',
-        startDate: 'January 2007',
-        endDate: 'December 2016',
-        responsibilities: [
-          'Specialized in infection control and prevention protocols',
-          'Provided expert nursing care for patients with infectious diseases',
-          'Implemented and monitored infection control measures',
-          'Collaborated with multidisciplinary healthcare teams'
-        ]
+        startDate: {
+          en: 'January 2007',
+          nl: 'Januari 2007'
+        },
+        endDate: {
+          en: 'December 2016',
+          nl: 'December 2016'
+        },
+        responsibilities: {
+          en: [
+            'Specialized in infection control and prevention protocols',
+            'Provided expert nursing care for patients with infectious diseases',
+            'Implemented and monitored infection control measures',
+            'Collaborated with multidisciplinary healthcare teams'
+          ],
+          nl: [
+            'Gespecialiseerd in infectiebeheersing en preventieprotocollen',
+            'Deskundige verpleegkundige zorg geboden aan patiënten met infectieziekten',
+            'Infectiebeheersingsmaatregelen geïmplementeerd en gemonitord',
+            'Samengewerkt met multidisciplinaire zorgteams'
+          ]
+        }
       },
       {
         id: 4,
-        title: 'Docente',
+        title: {
+          en: 'Docente',
+          nl: 'Docent'
+        },
         company: 'Escola Info Jardins',
         location: 'Barueri, Brazil',
-        startDate: 'July 2006',
-        endDate: 'December 2006',
-        responsibilities: [
-          'Developed and delivered educational content',
-          'Provided instruction and guidance to students',
-          'Prepared educational materials and assessments',
-          'Collaborated with other faculty members on curriculum development'
-        ]
+        startDate: {
+          en: 'July 2006',
+          nl: 'Juli 2006'
+        },
+        endDate: {
+          en: 'December 2006',
+          nl: 'December 2006'
+        },
+        responsibilities: {
+          en: [
+            'Developed and delivered educational content',
+            'Provided instruction and guidance to students',
+            'Prepared educational materials and assessments',
+            'Collaborated with other faculty members on curriculum development'
+          ],
+          nl: [
+            'Ontwikkelde en leverde educatieve inhoud',
+            'Bood instructie en begeleiding aan studenten',
+            'Bereidde educatieve materialen en beoordelingen voor',
+            'Samengewerkt met andere faculteitsleden aan curriculumontwikkeling'
+          ]
+        }
       }
     ]);
 
     const [education, setEducation] = useState([
       {
         id: 1,
-        degree: 'Especialização',
-        field: 'Infectologia',
+        degree: {
+          en: 'Especialização',
+          nl: 'Specialisatie'
+        },
+        field: {
+          en: 'Infectologia',
+          nl: 'Infectiologie'
+        },
         school: 'Unifesp - Universidade Federal de São Paulo',
         location: 'São Paulo, Brazil',
         graduationDate: '2010',
       },
       {
         id: 2,
-        degree: 'Bachelor\'s Degree',
-        field: 'Enfermagem',
+        degree: {
+          en: 'Bachelor\'s Degree',
+          nl: 'Bachelor\'s Degree'
+        },
+        field: {
+          en: 'Enfermagem',
+          nl: 'Verpleegkunde'
+        },
         school: 'Faculdade de Ciências Médicas da Santa Casa de São Paulo',
         location: 'São Paulo, Brazil',
         graduationDate: '2006',
-        activities: 'Tesoureira do Centro Acadêmico'
+        activities: {
+          en: 'Tesoureira do Centro Acadêmico',
+          nl: 'Penningmeester van het Academisch Centrum'
+        }
       }
     ]);
 
     const [skills, setSkills] = useState({
       technical: ['Jira', 'Confluence', 'Scrum', 'Kanban', 'Agile Ceremonies', 'Sprint Planning', 'Trello', 'Microsoft Teams'],
-      languages: ['English (Advanced)', 'Dutch (B1)', 'Portuguese (Native)'],
-      certifications: ['Certified ScrumMaster (CSM)']
+      languages: {
+        en: ['English (Advanced)', 'Dutch (B1)', 'Portuguese (Native)'],
+        nl: ['Engels (Gevorderd)', 'Nederlands (B1)', 'Portugees (Moedertaal)']
+      },
+      certifications: []
     });
 
     const [projects, setProjects] = useState([
       {
         id: 1,
-        name: 'E-commerce Platform Migration',
-        description: 'Served as Junior Scrum Master for a team transitioning an e-commerce platform to a new architecture',
+        name: {
+          en: 'E-commerce Platform Migration',
+          nl: 'E-commerce Platform Migratie'
+        },
+        description: {
+          en: 'Served as Junior Scrum Master for a team transitioning an e-commerce platform to a new architecture',
+          nl: 'Diende als Junior Scrum Master voor een team dat een e-commerce platform naar een nieuwe architectuur migreerde'
+        },
         technologies: ['Scrum', 'Jira', 'Risk Management', 'Sprint Planning'],
         link: 'portfolio-site.com/projects'
       },
       {
         id: 2,
-        name: 'Agile Transformation Workshop',
-        description: 'Co-facilitated workshops to help teams transition from traditional to Agile methodologies',
+        name: {
+          en: 'Agile Transformation Workshop',
+          nl: 'Agile Transformatie Workshop'
+        },
+        description: {
+          en: 'Co-facilitated workshops to help teams transition from traditional to Agile methodologies',
+          nl: 'Faciliteerde workshops om teams te helpen bij de overgang van traditionele naar Agile methodologieën'
+        },
         technologies: ['Training', 'Coaching', 'Change Management'],
         link: 'portfolio-site.com/workshops'
       }
@@ -155,6 +265,42 @@
 
     const handleExportPDF = () => {
       window.print();
+    };
+
+    const toggleLanguage = () => {
+      setLanguage(language === 'en' ? 'nl' : 'en');
+    };
+
+    const t = (key) => {
+      if (typeof key === 'object') {
+        return key[language] || key.en || '';
+      }
+      return key;
+    };
+
+    const texts = {
+      en: {
+        professionalSummary: 'Professional Summary',
+        professionalExperience: 'Professional Experience',
+        education: 'Education',
+        skillsQualifications: 'Skills & Qualifications',
+        agileTechnicalSkills: 'Agile & Technical Skills',
+        languages: 'Languages',
+        exportPdf: 'Export PDF',
+        clickToAdd: 'Click to add photo',
+        activities: 'Activities'
+      },
+      nl: {
+        professionalSummary: 'Professionele Samenvatting',
+        professionalExperience: 'Professionele Ervaring',
+        education: 'Opleiding',
+        skillsQualifications: 'Vaardigheden & Kwalificaties',
+        agileTechnicalSkills: 'Agile & Technische Vaardigheden',
+        languages: 'Talen',
+        exportPdf: 'PDF Exporteren',
+        clickToAdd: 'Klik om foto toe te voegen',
+        activities: 'Activiteiten'
+      }
     };
 
     return (
@@ -171,7 +317,7 @@
                     ) : (
                         <div className="text-center p-4 text-sm">
                           <label htmlFor="photo-upload" className="cursor-pointer">
-                            <div className="mb-2">Click to add photo</div>
+                            <div className="mb-2">{texts[language].clickToAdd}</div>
                             <div className="w-12 h-12 rounded-full bg-white/40 mx-auto flex items-center justify-center">
                               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M3 16V4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12" />
@@ -196,17 +342,25 @@
 
                 <div className="text-center md:text-left">
                   <h1 className="text-4xl font-bold mb-2">{personalInfo.name}</h1>
-                  <h2 className="text-xl text-white/90 mb-4">{personalInfo.title}</h2>
+                  <h2 className="text-xl text-white/90 mb-4">{t(personalInfo.title)}</h2>
                 </div>
               </div>
 
-              <button
-                  onClick={handleExportPDF}
-                  className="flex items-center gap-2 bg-white text-purple-700 hover:bg-purple-50 px-4 py-2 rounded-lg transition-colors print:hidden"
-              >
-                <Download />
-                Export PDF
-              </button>
+              <div className="flex gap-2">
+                <button
+                    onClick={toggleLanguage}
+                    className="flex items-center gap-2 bg-white text-purple-700 hover:bg-purple-50 px-4 py-2 rounded-lg transition-colors print:hidden text-sm"
+                >
+                  {language === 'en' ? 'NL' : 'EN'}
+                </button>
+                <button
+                    onClick={handleExportPDF}
+                    className="flex items-center gap-2 bg-white text-purple-700 hover:bg-purple-50 px-4 py-2 rounded-lg transition-colors print:hidden"
+                >
+                  <Download />
+                  {texts[language].exportPdf}
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-6">
@@ -237,31 +391,31 @@
             {/* Professional Summary */}
             <section>
               <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
-                <Agile /> Professional Summary
+                <Agile /> {texts[language].professionalSummary}
               </h3>
-              <p className="text-gray-700 leading-relaxed">{summary}</p>
+              <p className="text-gray-700 leading-relaxed">{t(summary)}</p>
             </section>
 
             {/* Experience */}
             <section>
               <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
-                <Agile /> Professional Experience
+                <Agile /> {texts[language].professionalExperience}
               </h3>
               <div className="space-y-6">
                 {experience.map((job) => (
                     <div key={job.id} className="border-l-4 border-pink-400 pl-4">
                       <div className="flex flex-col md:flex-row justify-between md:items-start mb-2">
                         <div>
-                          <h4 className="text-xl font-semibold text-purple-700">{job.title}</h4>
-                          <h5 className="text-lg text-pink-500 font-medium">{job.company}</h5>
+                          <h4 className="text-xl font-semibold text-purple-700">{t(job.title)}</h4>
+                          <h5 className="text-lg text-pink-500 font-medium">{t(job.company)}</h5>
                         </div>
                         <div className="text-left md:text-right text-gray-600 mt-2 md:mt-0">
-                          <div>{job.startDate} - {job.endDate}</div>
+                          <div>{t(job.startDate)} - {t(job.endDate)}</div>
                           <div>{job.location}</div>
                         </div>
                       </div>
                       <ul className="list-disc list-inside space-y-1 text-gray-700">
-                        {job.responsibilities.map((resp, index) => (
+                        {t(job.responsibilities).map((resp, index) => (
                             <li key={index}>{resp}</li>
                         ))}
                       </ul>
@@ -273,18 +427,18 @@
             {/* Education */}
             <section>
               <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
-                <Agile /> Education
+                <Agile /> {texts[language].education}
               </h3>
               <div className="space-y-4">
                 {education.map((edu) => (
                     <div key={edu.id} className="flex flex-col md:flex-row justify-between md:items-start">
                       <div>
                         <h4 className="text-lg font-semibold text-purple-700">
-                          {edu.degree} in {edu.field}
+                          {t(edu.degree)} in {t(edu.field)}
                         </h4>
                         <h5 className="text-pink-500 font-medium">{edu.school}</h5>
                         <p className="text-gray-600">{edu.location}</p>
-                        {edu.activities && <p className="text-gray-600 italic">Activities: {edu.activities}</p>}
+                        {edu.activities && <p className="text-gray-600 italic">{texts[language].activities}: {t(edu.activities)}</p>}
                       </div>
                       <div className="text-left md:text-right text-gray-600 mt-2 md:mt-0">
                         <div>{edu.graduationDate}</div>
@@ -298,11 +452,11 @@
             {/* Skills */}
             <section>
               <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
-                <Agile /> Skills & Qualifications
+                <Agile /> {texts[language].skillsQualifications}
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <h4 className="font-semibold text-purple-700 mb-2">Agile & Technical Skills</h4>
+                  <h4 className="font-semibold text-purple-700 mb-2">{texts[language].agileTechnicalSkills}</h4>
                   <div className="flex flex-wrap gap-2">
                     {skills.technical.map((skill, index) => (
                         <span key={index} className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">
@@ -312,52 +466,15 @@
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-purple-700 mb-2">Languages</h4>
+                  <h4 className="font-semibold text-purple-700 mb-2">{texts[language].languages}</h4>
                   <div className="flex flex-wrap gap-2">
-                    {skills.languages.map((lang, index) => (
+                    {t(skills.languages).map((lang, index) => (
                         <span key={index} className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">
                             {lang}
                           </span>
                     ))}
                   </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-purple-700 mb-2">Certifications</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.certifications.map((cert, index) => (
-                        <span key={index} className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">
-                            {cert}
-                          </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Projects */}
-            <section>
-              <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
-                <Agile /> Notable Projects
-              </h3>
-              <div className="space-y-4">
-                {projects.map((project) => (
-                    <div key={project.id} className="border border-pink-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="flex flex-col md:flex-row justify-between md:items-start mb-2">
-                        <h4 className="text-lg font-semibold text-purple-700">{project.name}</h4>
-                        <a href={`https://${project.link}`} className="text-pink-500 hover:underline text-sm mt-1 md:mt-0">
-                          {project.link}
-                        </a>
-                      </div>
-                      <p className="text-gray-700 mb-2">{project.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, index) => (
-                            <span key={index} className="bg-purple-50 text-purple-700 px-2 py-1 rounded text-sm">
-                              {tech}
-                            </span>
-                        ))}
-                      </div>
-                    </div>
-                ))}
               </div>
             </section>
           </div>
