@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume</title>
+  <title>Junior Scrum Master Resume</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -12,38 +12,100 @@
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
 <script type="text/babel">
   const { useState } = React;
-  const { Download, Mail, Phone, MapPin, Linkedin, Github, Globe } = lucide;
+
+  // Icon components
+  const Download = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
+  const Mail = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m4 4 16 0 0 16-16 0z"/><polyline points="m4,4 l8,8 l8,-8"/></svg>;
+  const Phone = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
+  const MapPin = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+  const Linkedin = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>;
+  const Github = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>;
+  const Agile = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M12 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M20 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0z"/><path d="M4 12a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/><path d="M14.83 9.17a2 2 0 1 0-2.83-2.83 2 2 0 0 0 2.83 2.83z"/><path d="M14.83 14.83a2 2 0 1 0 2.83 2.83 2 2 0 0 0-2.83-2.83z"/><path d="M9.17 14.83a2 2 0 1 0-2.83 2.83 2 2 0 0 0 2.83-2.83z"/><path d="M9.17 9.17a2 2 0 1 0 2.83-2.83 2 2 0 0 0-2.83 2.83z"/></svg>;
 
   const Resume = () => {
+    // State for photo upload
+    const [photoURL, setPhotoURL] = useState('');
+
+    const handlePhotoChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setPhotoURL(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
     const [personalInfo, setPersonalInfo] = useState({
-      name: 'Your Name',
-      title: 'Your Professional Title',
-      email: 'your.email@example.com',
-      phone: '+1 (555) 123-4567',
-      location: 'City, State',
-      linkedin: 'linkedin.com/in/yourprofile',
-      github: 'github.com/yourusername',
-      website: 'yourwebsite.com'
+      name: 'Pamela Zamboni',
+      title: 'Junior Scrum Master',
+      email: 'zambgirl@gmail.com',
+      phone: '+31 6 47473225',
+      location: 'Zoetermeer, Netherlands',
+      linkedin: 'linkedin.com/in/pamela-zamboni-15a0468b',
+      github: 'github.com/zambgirl'
     });
 
-    const [summary, setSummary] = useState('Professional summary paragraph describing your key qualifications and career objectives.');
+    const [summary, setSummary] = useState('Dedicated Junior Scrum Master with a passion for Agile methodologies and a collaborative approach to project management. Skilled in facilitating ceremonies, removing impediments, and fostering team development. Committed to continuous improvement and creating environments where teams can thrive and deliver exceptional results.');
 
     const [experience, setExperience] = useState([
       {
         id: 1,
-        title: 'Job Title',
-        company: 'Company Name',
-        location: 'City, State',
-        startDate: 'Month Year',
-        endDate: 'Month Year',
+        title: 'Junior Scrum Master',
+        company: 'Martin SSH B.V.',
+        location: 'The Hague, Netherlands',
+        startDate: 'January 2023',
+        endDate: 'Present',
         responsibilities: [
-          'Key responsibility or achievement',
-          'Another significant contribution',
-          'Third notable accomplishment'
+          'Facilitated daily stand-ups, sprint planning, reviews, and retrospectives for a team of 8 developers',
+          'Removed impediments and coached team members on Agile best practices',
+          'Collaborated with Product Owner to maintain and prioritize the product backlog',
+          'Improved sprint velocity by 15% through process refinements and team building activities'
+        ]
+      },
+      {
+        id: 2,
+        title: 'Full time mom and Agile Enthusiast',
+        company: 'Home',
+        location: 'Zoetermeer, Netherlands',
+        startDate: 'January 2017',
+        endDate: 'December 2022',
+        responsibilities: [
+          'Managed household operations and family schedules',
+          'Applied Agile principles to daily life, focusing on continuous improvement and adaptability',
+          'Engaged in self-study of Agile methodologies, Scrum practices, and team dynamics',
+          'Participated in online Agile communities and forums to enhance knowledge and skills'
+        ]
+      },
+      {
+        id: 3,
+        title: 'Infectologist Nurse',
+        company: 'Prefeitura Municipal de Barueri',
+        location: 'Barueri, Brazil',
+        startDate: 'January 2007',
+        endDate: 'December 2016',
+        responsibilities: [
+          'Specialized in infection control and prevention protocols',
+          'Provided expert nursing care for patients with infectious diseases',
+          'Implemented and monitored infection control measures',
+          'Collaborated with multidisciplinary healthcare teams'
+        ]
+      },
+      {
+        id: 4,
+        title: 'Docente',
+        company: 'Escola Info Jardins',
+        location: 'Barueri, Brazil',
+        startDate: 'July 2006',
+        endDate: 'December 2006',
+        responsibilities: [
+          'Developed and delivered educational content',
+          'Provided instruction and guidance to students',
+          'Prepared educational materials and assessments',
+          'Collaborated with other faculty members on curriculum development'
         ]
       }
     ]);
@@ -51,28 +113,43 @@
     const [education, setEducation] = useState([
       {
         id: 1,
-        degree: 'Degree Type',
-        field: 'Field of Study',
-        school: 'University/College Name',
-        location: 'City, State',
-        graduationDate: 'Month Year',
-        gpa: '3.X/4.0'
+        degree: 'Especialização',
+        field: 'Infectologia',
+        school: 'Unifesp - Universidade Federal de São Paulo',
+        location: 'São Paulo, Brazil',
+        graduationDate: '2010',
+      },
+      {
+        id: 2,
+        degree: 'Bachelor\'s Degree',
+        field: 'Enfermagem',
+        school: 'Faculdade de Ciências Médicas da Santa Casa de São Paulo',
+        location: 'São Paulo, Brazil',
+        graduationDate: '2006',
+        activities: 'Tesoureira do Centro Acadêmico'
       }
     ]);
 
     const [skills, setSkills] = useState({
-      technical: ['Skill 1', 'Skill 2', 'Skill 3'],
-      languages: ['Language 1', 'Language 2'],
-      certifications: ['Certification 1', 'Certification 2']
+      technical: ['Jira', 'Confluence', 'Scrum', 'Kanban', 'Agile Ceremonies', 'Sprint Planning', 'Trello', 'Microsoft Teams'],
+      languages: ['English (Advanced)', 'Dutch (B1)', 'Portuguese (Native)'],
+      certifications: ['Certified ScrumMaster (CSM)']
     });
 
     const [projects, setProjects] = useState([
       {
         id: 1,
-        name: 'Project Name',
-        description: 'Brief project description',
-        technologies: ['Tech 1', 'Tech 2'],
-        link: 'project-url.com'
+        name: 'E-commerce Platform Migration',
+        description: 'Served as Junior Scrum Master for a team transitioning an e-commerce platform to a new architecture',
+        technologies: ['Scrum', 'Jira', 'Risk Management', 'Sprint Planning'],
+        link: 'portfolio-site.com/projects'
+      },
+      {
+        id: 2,
+        name: 'Agile Transformation Workshop',
+        description: 'Co-facilitated workshops to help teams transition from traditional to Agile methodologies',
+        technologies: ['Training', 'Coaching', 'Change Management'],
+        link: 'portfolio-site.com/workshops'
       }
     ]);
 
@@ -83,45 +160,75 @@
     return (
         <div className="max-w-4xl mx-auto bg-white shadow-lg print:shadow-none">
           {/* Header */}
-          <header className="bg-gray-900 text-white p-8 print:bg-gray-800">
-            <div className="flex justify-between items-start">
-              <div>
-                <h1 className="text-4xl font-bold mb-2">{personalInfo.name}</h1>
-                <h2 className="text-xl text-gray-300 mb-4">{personalInfo.title}</h2>
+          <header className="bg-gradient-to-r from-purple-400 to-pink-400 text-white p-8 print:from-purple-500 print:to-pink-400">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                {/* Photo upload section */}
+                <div className="relative">
+                  <div className="w-36 h-36 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border-4 border-white/30">
+                    {photoURL ? (
+                        <img src={photoURL} alt="Profile" className="object-cover w-full h-full" />
+                    ) : (
+                        <div className="text-center p-4 text-sm">
+                          <label htmlFor="photo-upload" className="cursor-pointer">
+                            <div className="mb-2">Click to add photo</div>
+                            <div className="w-12 h-12 rounded-full bg-white/40 mx-auto flex items-center justify-center">
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M3 16V4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12" />
+                                <path d="M3 16l4 4h10l4-4" />
+                                <path d="M8 7v-.5A1.5 1.5 0 0 1 9.5 5h5A1.5 1.5 0 0 1 16 6.5V7" />
+                                <line x1="12" y1="9" x2="12" y2="15" />
+                                <line x1="9" y1="12" x2="15" y2="12" />
+                              </svg>
+                            </div>
+                          </label>
+                          <input
+                              id="photo-upload"
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={handlePhotoChange}
+                          />
+                        </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-center md:text-left">
+                  <h1 className="text-4xl font-bold mb-2">{personalInfo.name}</h1>
+                  <h2 className="text-xl text-white/90 mb-4">{personalInfo.title}</h2>
+                </div>
               </div>
+
               <button
                   onClick={handleExportPDF}
-                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors print:hidden"
+                  className="flex items-center gap-2 bg-white text-purple-700 hover:bg-purple-50 px-4 py-2 rounded-lg transition-colors print:hidden"
               >
-                <Download size={16} />
+                <Download />
                 Export PDF
               </button>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mt-6">
               <div className="flex items-center gap-2">
-                <Mail size={16} />
+                <Mail />
                 <span>{personalInfo.email}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone size={16} />
+                <Phone />
                 <span>{personalInfo.phone}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin size={16} />
+                <MapPin />
                 <span>{personalInfo.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Linkedin size={16} />
+                <Linkedin />
                 <span>{personalInfo.linkedin}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Github size={16} />
+                <Github />
                 <span>{personalInfo.github}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Globe size={16} />
-                <span>{personalInfo.website}</span>
               </div>
             </div>
           </header>
@@ -129,26 +236,26 @@
           <div className="p-8 space-y-8">
             {/* Professional Summary */}
             <section>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
-                Professional Summary
+              <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
+                <Agile /> Professional Summary
               </h3>
               <p className="text-gray-700 leading-relaxed">{summary}</p>
             </section>
 
             {/* Experience */}
             <section>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
-                Professional Experience
+              <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
+                <Agile /> Professional Experience
               </h3>
               <div className="space-y-6">
                 {experience.map((job) => (
-                    <div key={job.id} className="border-l-4 border-blue-500 pl-4">
-                      <div className="flex justify-between items-start mb-2">
+                    <div key={job.id} className="border-l-4 border-pink-400 pl-4">
+                      <div className="flex flex-col md:flex-row justify-between md:items-start mb-2">
                         <div>
-                          <h4 className="text-xl font-semibold text-gray-900">{job.title}</h4>
-                          <h5 className="text-lg text-blue-600 font-medium">{job.company}</h5>
+                          <h4 className="text-xl font-semibold text-purple-700">{job.title}</h4>
+                          <h5 className="text-lg text-pink-500 font-medium">{job.company}</h5>
                         </div>
-                        <div className="text-right text-gray-600">
+                        <div className="text-left md:text-right text-gray-600 mt-2 md:mt-0">
                           <div>{job.startDate} - {job.endDate}</div>
                           <div>{job.location}</div>
                         </div>
@@ -165,20 +272,21 @@
 
             {/* Education */}
             <section>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
-                Education
+              <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
+                <Agile /> Education
               </h3>
               <div className="space-y-4">
                 {education.map((edu) => (
-                    <div key={edu.id} className="flex justify-between items-start">
+                    <div key={edu.id} className="flex flex-col md:flex-row justify-between md:items-start">
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900">
+                        <h4 className="text-lg font-semibold text-purple-700">
                           {edu.degree} in {edu.field}
                         </h4>
-                        <h5 className="text-blue-600 font-medium">{edu.school}</h5>
+                        <h5 className="text-pink-500 font-medium">{edu.school}</h5>
                         <p className="text-gray-600">{edu.location}</p>
+                        {edu.activities && <p className="text-gray-600 italic">Activities: {edu.activities}</p>}
                       </div>
-                      <div className="text-right text-gray-600">
+                      <div className="text-left md:text-right text-gray-600 mt-2 md:mt-0">
                         <div>{edu.graduationDate}</div>
                         {edu.gpa && <div>GPA: {edu.gpa}</div>}
                       </div>
@@ -189,35 +297,35 @@
 
             {/* Skills */}
             <section>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
-                Skills & Qualifications
+              <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
+                <Agile /> Skills & Qualifications
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Technical Skills</h4>
+                  <h4 className="font-semibold text-purple-700 mb-2">Agile & Technical Skills</h4>
                   <div className="flex flex-wrap gap-2">
                     {skills.technical.map((skill, index) => (
-                        <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                        <span key={index} className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">
                             {skill}
                           </span>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Languages</h4>
+                  <h4 className="font-semibold text-purple-700 mb-2">Languages</h4>
                   <div className="flex flex-wrap gap-2">
                     {skills.languages.map((lang, index) => (
-                        <span key={index} className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                        <span key={index} className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">
                             {lang}
                           </span>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Certifications</h4>
+                  <h4 className="font-semibold text-purple-700 mb-2">Certifications</h4>
                   <div className="flex flex-wrap gap-2">
                     {skills.certifications.map((cert, index) => (
-                        <span key={index} className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">
+                        <span key={index} className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">
                             {cert}
                           </span>
                     ))}
@@ -228,22 +336,22 @@
 
             {/* Projects */}
             <section>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-300 pb-2">
-                Notable Projects
+              <h3 className="text-2xl font-bold text-purple-700 mb-4 border-b-2 border-pink-200 pb-2 flex items-center gap-2">
+                <Agile /> Notable Projects
               </h3>
               <div className="space-y-4">
                 {projects.map((project) => (
-                    <div key={project.id} className="border border-gray-200 rounded-lg p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-lg font-semibold text-gray-900">{project.name}</h4>
-                        <a href={`https://${project.link}`} className="text-blue-600 hover:underline text-sm">
+                    <div key={project.id} className="border border-pink-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex flex-col md:flex-row justify-between md:items-start mb-2">
+                        <h4 className="text-lg font-semibold text-purple-700">{project.name}</h4>
+                        <a href={`https://${project.link}`} className="text-pink-500 hover:underline text-sm mt-1 md:mt-0">
                           {project.link}
                         </a>
                       </div>
                       <p className="text-gray-700 mb-2">{project.description}</p>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.map((tech, index) => (
-                            <span key={index} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
+                            <span key={index} className="bg-purple-50 text-purple-700 px-2 py-1 rounded text-sm">
                               {tech}
                             </span>
                         ))}
@@ -256,10 +364,12 @@
 
           <style jsx>{`
                 @media print {
-                  body { -webkit-print-color-adjust: exact; }
+                  body { -webkit-print-color-adjust: exact; color-adjust: exact; }
                   .print\\:shadow-none { box-shadow: none; }
                   .print\\:hidden { display: none; }
-                  .print\\:bg-gray-800 { background-color: #1f2937; }
+                  .print\\:from-purple-500 { --tw-gradient-from: #8b5cf6; }
+                  .print\\:to-pink-400 { --tw-gradient-to: #f472b6; }
+                  input[type="file"] { display: none; }
                 }
               `}</style>
         </div>
